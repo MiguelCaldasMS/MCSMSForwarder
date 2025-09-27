@@ -1,0 +1,18 @@
+# IDE files
+.idea/
+*.iml
+*.iws
+.DS_Store
+
+# Build files
+build/
+.gradle/
+local.properties
+
+# Captures and logs
+captures/
+*.log
+
+# Keystore files
+*.jks
+*.keystore
