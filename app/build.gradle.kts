@@ -54,12 +54,15 @@ android {
 
 dependencies {
     // Dependencies using aliases from libs.versions.toml
+    implementation(libs.google.material)
+    implementation(libs.google.gson)
     implementation(libs.kotlin.stdlib) // Explicit stdlib, version from catalog
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.google.material)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.fragment.ktx)
 
     // Test dependencies (uncomment and add if you use them, ensure they are in libs.versions.toml)
     // testImplementation(libs.junit)

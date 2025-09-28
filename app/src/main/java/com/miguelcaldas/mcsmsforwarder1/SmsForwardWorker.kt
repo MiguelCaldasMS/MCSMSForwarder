@@ -5,11 +5,9 @@ import android.telephony.SmsManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import androidx.core.content.ContextCompat // Import ContextCompat
+import com.miguelcaldas.mcsmsforwarder1.util.LogUtils
 
-class SmsForwardWorker(
-    appContext: Context,
-    workerParams: WorkerParameters
-) : Worker(appContext, workerParams) {
+class SmsForwardWorker(appContext: Context, workerParams: WorkerParameters): Worker(appContext, workerParams) {
 
     override fun doWork(): Result {
         val message = inputData.getString("message") ?: return Result.failure()
@@ -23,14 +21,14 @@ class SmsForwardWorker(
             // though for SmsManager it's generally available.
             if (smsManager != null) {
                 smsManager.sendTextMessage(forwardTo, null, message, null, null)
-                addToLog(applicationContext, "REAL SEND → To: $forwardTo | Msg: $message")
+                LogUtils.addToLog(applicationContext, "REAL SEND → To: $forwardTo | Msg: $message")
                 Result.success()
             } else {
-                addToLog(applicationContext, "REAL SEND FAILED → SmsManager not available")
+                LogUtils.addToLog(applicationContext, "REAL SEND FAILED → SmsManager not available")
                 Result.failure()
             }
         } catch (e: Exception) {
-            addToLog(applicationContext, "REAL SEND FAILED → To: $forwardTo | Error: ${e.message}")
+            LogUtils.addToLog(applicationContext, "REAL SEND FAILED → To: $forwardTo | Error: ${e.message}")
             Result.failure()
         }
     }

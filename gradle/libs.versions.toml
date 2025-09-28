@@ -14,11 +14,14 @@ minSdk = "33"
 targetSdk = "36"
 
 # Libraries
-androidxCoreKtx = "1.12.0" # Updated example, use latest stable
-androidxAppCompat = "1.6.1" # Updated example, use latest stable
-googleMaterial = "1.11.0"  # Updated example, use latest stable
-androidxConstraintLayout = "2.1.4" # Current version
-androidxWorkManager = "2.9.0" # Updated example, use latest stable
+googleMaterial = "1.13.0"
+googleGson = "2.13.2"
+androidxCoreKtx = "1.17.0"
+androidxAppCompat = "1.7.1"
+androidxConstraintLayout = "2.2.1"
+androidxWorkManager = "2.10.5"
+androidxActivity = "1.11.0"
+androidxFragment = "1.8.9"
 
 # Test Libraries (Add if you use them)
 # junit = "4.13.2"
@@ -31,9 +34,11 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidxConstraintLayout" }
 androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidxWorkManager" }
-
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
+androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidxFragment" }
 # Google
 google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
+google-gson = { group = "com.google.code.gson", name = "gson", version.ref = "googleGson" }
 
 # Kotlin Standard Library (usually brought in by the plugin, but can be explicit)
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
@@ -46,7 +51,7 @@ kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", versio
 [plugins]
 # These IDs are used in the module-level build.gradle.kts 'plugins' block
 android-application = { id = "com.android.application", version.ref = "agp" }
-android-library = { id = "com.android.library", version.ref = "agp" } # If you have library modules
+# android-library = { id = "com.android.library", version.ref = "agp" } # If you have library modules
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 # Add other plugins here, e.g., KSP, Hilt, Google Services
 # google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" } # Define kspVersion in [versions]

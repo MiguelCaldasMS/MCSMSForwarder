@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.miguelcaldas.mcsmsforwarder1.util.LogUtils
 
 class RegexTesterActivity : AppCompatActivity() {
 
@@ -73,7 +74,7 @@ class RegexTesterActivity : AppCompatActivity() {
             testResult.text = resultSummary
 
             if (senderAllowed && matchText != null) {
-                addToLog(this, "FAKE SEND → To: $forwardTo | Msg: $matchText")
+                LogUtils.addToLog(this, "FAKE SEND → To: $forwardTo | Msg: $matchText")
                 Toast.makeText(this, "Simulated send logged", Toast.LENGTH_SHORT).show()
             }
         }
