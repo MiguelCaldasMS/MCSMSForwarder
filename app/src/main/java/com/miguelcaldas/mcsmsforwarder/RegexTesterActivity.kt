@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.miguelcaldas.mcsmsforwarder.util.LogUtils
 import com.miguelcaldas.mcsmsforwarder.util.RegexListStore
 import com.miguelcaldas.mcsmsforwarder.util.SenderListStore
+import com.miguelcaldas.mcsmsforwarder.util.TextNormalizer
 
 class RegexTesterActivity : AppCompatActivity() {
 
@@ -67,7 +68,7 @@ class RegexTesterActivity : AppCompatActivity() {
 
             val senderAllowed = allowedSenders.contains(sender)
             val regexMatch: MatchResult? = try {
-                Regex(patternText).find(message)
+                Regex(patternText).find(TextNormalizer.foldDiacritics(message))
             } catch (e: Exception) {
                 testResult.text = "⚠️ Invalid regex: ${e.message}"
                 return@setOnClickListener

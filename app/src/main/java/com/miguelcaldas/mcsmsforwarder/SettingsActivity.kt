@@ -46,6 +46,7 @@ class SettingsActivity : AppCompatActivity() {
         prefs = getSharedPreferences("mc_sms_forwarder", Context.MODE_PRIVATE)
 
         val destinationNumber = findViewById<EditText>(R.id.destinationNumber)
+        val forwardTemplate = findViewById<EditText>(R.id.forwardTemplate)
         val openTester = findViewById<MaterialButton>(R.id.openTester)
         val addSenderButton = findViewById<MaterialButton>(R.id.addSenderButton)
         val addRegexButton = findViewById<MaterialButton>(R.id.addRegexButton)
@@ -55,6 +56,11 @@ class SettingsActivity : AppCompatActivity() {
         destinationNumber.setText(prefs.getString("forwardTo", ""))
         destinationNumber.addTextChangedListener { text ->
             prefs.edit { putString("forwardTo", text?.toString()?.trim().orEmpty()) }
+        }
+
+        forwardTemplate.setText(prefs.getString("forwardTemplate", ""))
+        forwardTemplate.addTextChangedListener { text ->
+            prefs.edit { putString("forwardTemplate", text?.toString().orEmpty()) }
         }
 
         SenderListStore.load(prefs).forEach { addSenderRow(it) }
