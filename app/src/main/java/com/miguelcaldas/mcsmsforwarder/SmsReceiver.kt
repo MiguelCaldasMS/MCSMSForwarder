@@ -51,9 +51,10 @@ class SmsReceiver : BroadcastReceiver() {
         if (!senderAllowed) return
         // Forward if ANY configured regex matches. Invalid regex syntax is silently
         // treated as a non-match — a single malformed entry never blocks the others.
-        // Diacritics are stripped from the body before matching so patterns can be
-        // written without accents; the original (accented) body is still forwarded.
-        val normalizedBody = TextNormalizer.foldDiacritics(fullBody)
+        // Diacritics are stripped and the body is lowercased before matching so patterns
+        // can be written without accents or case worries; the original body (accents and
+        // case preserved) is still what gets forwarded.
+        val normalizedBody = TextNormalizer.normalizeForMatching(fullBody)
         val bodyMatches = patterns.any { pat ->
             try { Regex(pat).containsMatchIn(normalizedBody) } catch (_: Exception) { false }
         }

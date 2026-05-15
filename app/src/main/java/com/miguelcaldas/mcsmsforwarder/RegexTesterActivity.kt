@@ -68,7 +68,7 @@ class RegexTesterActivity : AppCompatActivity() {
 
             val senderAllowed = allowedSenders.contains(sender)
             val regexMatch: MatchResult? = try {
-                Regex(patternText).find(TextNormalizer.foldDiacritics(message))
+                Regex(patternText).find(TextNormalizer.normalizeForMatching(message))
             } catch (e: Exception) {
                 testResult.text = "⚠️ Invalid regex: ${e.message}"
                 return@setOnClickListener
