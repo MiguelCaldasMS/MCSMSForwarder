@@ -1,12 +1,11 @@
 # IDE files
 .idea/
-*.iml
-*.iws
 .DS_Store
 
 # Build files
 build/
 .gradle/
+.kotlin/
 local.properties
 
 # Captures and logs
