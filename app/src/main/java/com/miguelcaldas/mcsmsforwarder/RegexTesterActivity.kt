@@ -67,24 +67,24 @@ class RegexTesterActivity : AppCompatActivity() {
             }
 
             val senderAllowed = allowedSenders.contains(sender)
-            val regexMatch: MatchResult? = try {
-                Regex(patternText).find(TextNormalizer.normalizeForMatching(message))
+            // Mirror SmsReceiver: the pattern is a yes/no filter, never a capture-group extractor.
+            val matched = try {
+                Regex(patternText).containsMatchIn(TextNormalizer.normalizeForMatching(message))
             } catch (e: Exception) {
                 testResult.text = "⚠️ Invalid regex: ${e.message}"
                 return@setOnClickListener
             }
 
-            val matchText = regexMatch?.let { it.groups[1]?.value ?: it.value }
             val forwardTo = prefs.getString("forwardTo", null) ?: "(no destination set)"
 
             testResult.text = buildString {
                 append("Sender allowed: $senderAllowed\n")
-                append("Regex matched: ${regexMatch != null}\n")
-                if (matchText != null) append("Would forward: \"$matchText\" to $forwardTo")
+                append("Regex matched: $matched\n")
+                if (matched) append("Would forward: \"$message\" to $forwardTo")
             }
 
-            if (senderAllowed && matchText != null) {
-                LogUtils.addToLog(this, "FAKE SEND → To: $forwardTo | Msg: $matchText")
+            if (senderAllowed && matched) {
+                LogUtils.addToLog(this, "FAKE SEND → To: $forwardTo | Msg: $message")
                 Snackbar.make(rootContainer, "Simulated send logged", Snackbar.LENGTH_SHORT).show()
             }
         }

@@ -87,6 +87,10 @@ class SettingsActivity : AppCompatActivity() {
         val delete = row.findViewById<MaterialButton>(R.id.deleteSender)
 
         entry.setText(initialValue)
+        // All rows share R.id.senderEntry, so view-state restore would copy the
+        // last-focused row's text onto every row on activity recreation. We rebuild
+        // from prefs in onCreate, so opt out of view-state save/restore here.
+        entry.isSaveEnabled = false
         entry.addTextChangedListener { persistSenders() }
         delete.setOnClickListener {
             sendersContainer.removeView(row)
@@ -111,6 +115,8 @@ class SettingsActivity : AppCompatActivity() {
         val delete = row.findViewById<MaterialButton>(R.id.deleteRegex)
 
         entry.setText(initialValue)
+        // See addSenderRow: avoid view-state restore collapsing rows that share an id.
+        entry.isSaveEnabled = false
         entry.addTextChangedListener { persistRegexes() }
         delete.setOnClickListener {
             regexesContainer.removeView(row)
